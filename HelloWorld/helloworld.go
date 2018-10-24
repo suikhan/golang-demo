@@ -10,5 +10,5 @@ func main() {
 }
 
 func SayHello(name string) string {
-	fmt.Println(name)
+	return "Hello," + name
 }
