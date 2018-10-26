@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"fmt"
+
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -17,6 +18,7 @@ func main() {
 	checkErr(err)
 	fmt.Println(id)
 	fmt.Println("It is over!")
+	db.Close()
 }
 
 func checkErr(err error) {
