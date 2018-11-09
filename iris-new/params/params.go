@@ -11,7 +11,7 @@ type LoginData struct {
 
 func Login(ctx iris.Context) {
 	var d LoginData
-	ctx.ReadForm
+
 	err := ctx.ReadForm(&d)
 	// err := ctx.ReadJSON(&d)
 	if err != nil {
