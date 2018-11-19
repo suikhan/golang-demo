@@ -23,16 +23,12 @@ func main() {
 
 	app.Post("/ping", func(ctx iris.Context) {
 		bytes, _ := ioutil.ReadAll(ctx.Request().Body) //读取请求数据
-		// encodeString := string(bytes)
-		// bytes, _ = base64.StdEncoding.DecodeString(encodeString)
 		str := string(bytes)
 		ctx.JSON(str)
 	})
 
 	app.Put("/ping", func(ctx iris.Context) {
 		bytes, _ := ioutil.ReadAll(ctx.Request().Body) //读取请求数据
-		// encodeString := string(bytes)
-		// bytes, _ = base64.StdEncoding.DecodeString(encodeString)
 		str := string(bytes)
 		ctx.JSON(str)
 	})
