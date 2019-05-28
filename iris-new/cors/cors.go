@@ -3,10 +3,15 @@ package main
 import (
 	"github.com/iris-contrib/middleware/cors"
 	"github.com/kataras/iris"
+	"github.com/kataras/iris/middleware/logger"
+	"github.com/kataras/iris/middleware/recover"
 )
 
 func main() {
 	app := iris.New()
+	app.Logger().SetLevel("debug")
+	app.Use(recover.New())
+	app.Use(logger.New())
 	crs := cors.New(cors.Options{
 		AllowedOrigins:   []string{"*"},
 		AllowCredentials: true,
@@ -28,6 +33,13 @@ func main() {
 		})
 		v1.Delete("/send", func(ctx iris.Context) {
 			ctx.WriteString("deleted")
+		})
+	}
+
+	v2 := app.Party("java-rest-server/rest", crs).AllowMethods(iris.MethodOptions)
+	{
+		v2.Get("/persons", func(ctx iris.Context){
+			ctx.WriteString("[{'id':1,'name':'a', 'email': 'a@b.c'}, {'id':2,'name':'b', 'email': 'b@b.c'}, {'id':3,'name':'c', 'email': 'c@b.c'}]")
 		})
 	}
 

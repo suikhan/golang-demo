@@ -3,16 +3,21 @@ package main
 import (
 	"github.com/iris-contrib/middleware/cors"
 	"github.com/kataras/iris"
+	"github.com/kataras/iris/middleware/logger"
+	"github.com/kataras/iris/middleware/recover"
 )
 
 func main() {
 	app := iris.New()
+	app.Logger().SetLevel("debug")
+	app.Use(recover.New())
+	app.Use(logger.New())
 	crs := cors.New(cors.Options{
 		AllowedOrigins:   []string{"*"},
 		AllowCredentials: true,
 	})
 
-	v1 := app.Party("/api/v1", crs).AllowMethods(iris.MethodOptions)
+	v1 := app.Party("/api/v2", crs).AllowMethods(iris.MethodOptions)
 	{
 		v1.Get("/hello", func(ctx iris.Context) {
 			ctx.WriteString("Hello from /hello")
